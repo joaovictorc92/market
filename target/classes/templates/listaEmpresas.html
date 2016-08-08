@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8" />
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<link rel="stylesheet" type="text/css"
+	th:href="@{/bootstrap/css/bootstrap-responsive.min.css}" />
+<link rel="stylesheet" type="text/css"
+	th:href="@{/bootstrap/css/bootstrap.min.css}" />
+<script th:src="@{/bootstrap/js/bootstrap.min.js}"></script>
+</head>
+<body>
+	<div class="container">
+		<div class="row">
+		<h3>Cadastro Empresas</h3>
+		<form class="form">
+			<div class="form-group" >
+				<label for="email">Razão Social:</label> 
+				<input type="text"
+					class="form-control span7" id="nome" placeholder="Razão Social" ></input>
+			</div>
+			<div class="form-group">
+				<label for="cnpj">CNPJ:</label> <input type="text"
+					class="form-control span7" id="cnpj" placeholder="CNPJ"></input>
+			</div>
+			<div class="form-group">
+				<label for="endereco">Endereço:</label> <input type="text"
+					class="form-control span7" id="pwd" placeholder="Endereco"></input>
+			</div>
+			<div class="form-group">
+				<label for="tipo">Tipo</label>
+				<select class="span7">
+					<option value="1">Loja de Departamento</option>
+					<option value="2">Supermercado </option>
+				</select>
+			</div>
+			<button type="submit" class="btn btn-primary" align="right">Salvar</button>
+		</form>
+		</div>
+		<div class="row">
+			<table class="table table-striped table-bordered" >
+			   <thead>
+			   <tr>
+			   <td>Nome</td>
+			   <td>CNPJ</td>
+			   <td>Endereco</td>
+			   <td>Tipo</td>
+			   </tr>
+			   </thead>
+			   <tbody>
+				<tr th:each="empresa : ${empresas}">
+					<td th:text="${empresa.nome}"></td>
+					<td th:text="${empresa.cnpj}"></td>					
+					<td th:text="${empresa.endereco}"></td>
+					<td th:text="${empresa.tipo}"></td>
+				</tr>
+				</tbody>
+			</table>
+		</div>
+	</div>
+</body>
+
+</html>
