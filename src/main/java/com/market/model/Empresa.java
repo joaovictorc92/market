@@ -24,6 +24,13 @@ public class Empresa {
 		this.endereco = endereco;
 	}
 	
+	public Empresa(){
+		this.nome = "";
+		this.cnpj = "";
+		this.tipo = 0;
+		this.endereco = "";
+	}
+	
 	public Integer getIdempresa() {
 		return idempresa;
 	}
