@@ -14,25 +14,24 @@
 	<div class="container">
 		<div class="row">
 		<h3>Cadastro Empresas</h3>
-		<form class="form">
+		<form  method="POST" th:object="${empresa}" th:action="@{/empresas}" class="form">
 			<div class="form-group" >
 				<label for="email">Razão Social:</label> 
 				<input type="text"
-					class="form-control span7" id="nome" placeholder="Razão Social" ></input>
+					class="form-control span7" id="nome" th:field="*{nome}" placeholder="Razão Social" ></input>
 			</div>
 			<div class="form-group">
 				<label for="cnpj">CNPJ:</label> <input type="text"
-					class="form-control span7" id="cnpj" placeholder="CNPJ"></input>
+					class="form-control span7" id="cnpj" th:field="*{cnpj}" placeholder="CNPJ"></input>
 			</div>
 			<div class="form-group">
 				<label for="endereco">Endereço:</label> <input type="text"
-					class="form-control span7" id="pwd" placeholder="Endereco"></input>
+					class="form-control span7" id="pwd" th:field="*{endereco}" placeholder="Endereco"></input>
 			</div>
 			<div class="form-group">
 				<label for="tipo">Tipo</label>
-				<select class="span7">
-					<option value="1">Loja de Departamento</option>
-					<option value="2">Supermercado </option>
+				<select class="span7" th:field="*{tipo}">
+					<option th:each="tipo:${listaTipoEmpresa}" th:value="${tipo.idtipoempresa}" th:text="${tipo.descricao}"></option>
 				</select>
 			</div>
 			<button type="submit" class="btn btn-primary" align="right">Salvar</button>
@@ -46,6 +45,7 @@
 			   <td>CNPJ</td>
 			   <td>Endereco</td>
 			   <td>Tipo</td>
+			   <td>Ação</td>
 			   </tr>
 			   </thead>
 			   <tbody>
@@ -54,6 +54,7 @@
 					<td th:text="${empresa.cnpj}"></td>					
 					<td th:text="${empresa.endereco}"></td>
 					<td th:text="${empresa.tipo}"></td>
+					<td></td>
 				</tr>
 				</tbody>
 			</table>
