@@ -3,6 +3,8 @@ package com.market.controller;
 import java.util.ArrayList;
 import java.util.Collection;
 
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -33,8 +35,16 @@ public class EmpresaController {
 	}
 	
 	@RequestMapping(value= "/empresas", method = RequestMethod.POST)
-	public ModelAndView salvar(Empresa empresa){
+	public ModelAndView salvar(@Valid Empresa empresa){
 		this.cadastroEmpresa.salvarEmpresa(empresa);
 		return new ModelAndView("redirect:/empresas");
+	}
+	@RequestMapping("/empresas/{codigo}")
+	public ModelAndView editar(@Valid Empresa empresa){
+		 ModelAndView mv = new ModelAndView("listaEmpresas");
+		 mv.addObject("empresa",empresa);
+		 mv.addObject("empresas",empresas.findAll());
+		 mv.addObject("listaTipoEmpresa",listaTipoEmpresa.findAll());
+		 return mv;
 	}
 }
