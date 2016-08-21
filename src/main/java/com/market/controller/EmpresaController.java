@@ -7,6 +7,7 @@ import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
@@ -40,11 +41,16 @@ public class EmpresaController {
 		return new ModelAndView("redirect:/empresas");
 	}
 	@RequestMapping("/empresas/{codigo}")
-	public ModelAndView editar(@Valid Empresa empresa){
+	public ModelAndView editar(@PathVariable("codigo") Integer codigo){
 		 ModelAndView mv = new ModelAndView("listaEmpresas");
-		 mv.addObject("empresa",empresa);
+		 mv.addObject("empresa",empresas.findOne(codigo));
 		 mv.addObject("empresas",empresas.findAll());
 		 mv.addObject("listaTipoEmpresa",listaTipoEmpresa.findAll());
 		 return mv;
+	}
+	@RequestMapping("/empresas/remover/{codigo}")
+	public ModelAndView remover(@PathVariable("codigo") Integer codigo){
+		this.cadastroEmpresa.excluirEmpresa(empresas.findOne(codigo));
+		return new ModelAndView("redirect:/empresas");
 	}
 }
