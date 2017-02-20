@@ -27,17 +27,17 @@
 					<div class="form-group">
 						<label for="email">Razão Social:</label> <input type="text"
 							class="form-control span7" id="nome" th:field="*{nome}"
-							placeholder="Razão Social"></input>
+							placeholder="Razão Social" readonly="readonly"></input>
 					</div>
 					<div class="form-group">
 						<label for="cnpj">CNPJ:</label> <input type="text"
 							class="form-control span7" id="cnpj" th:field="*{cnpj}"
-							placeholder="CNPJ"></input>
+							placeholder="CNPJ"  readonly="readonly"></input>
 					</div>
 					<div class="form-group">
 						<label for="endereco">Endereço:</label> <input type="text"
 							class="form-control span7" id="pwd" th:field="*{endereco}"
-							placeholder="Endereco"></input>
+							placeholder="Endereco"  readonly="readonly"></input>
 					</div>
 					<div class="form-group">
 						<label for="tipo">Tipo</label> <select class="span7"
@@ -46,8 +46,7 @@
 								th:value="${tipo.idtipoempresa}" th:text="${tipo.descricao}"></option>
 						</select>
 					</div>
-					<button type="submit" class="btn btn-primary" align="right">Salvar</button>
-					<a th:href="@{/empresas} " class="btn">Nova Empresa</a>
+					<a th:href="@{#modalProduto} " data-toggle="modal" class="btn">Adicionar Produto</a>
 				</form>
 			</div>
 			<div class="row">
@@ -55,26 +54,15 @@
 					<thead>
 						<tr>
 							<td>Nome</td>
-							<td>CNPJ</td>
-							<td>Endereco</td>
-							<td>Tipo</td>
-							<td>Ação</td>
+							<td>Preço</td>
+							<td>Descrição</td>
 						</tr>
 					</thead>
 					<tbody>
-						<tr th:each="empresa : ${empresas}">
-							<td th:text="${empresa.nome}"></td>
-							<td th:text="${empresa.cnpj}"></td>
-							<td th:text="${empresa.endereco}"></td>
-							<td th:text="${empresa.tipo.descricao}"></td>
-							<td><a
-								th:href="@{/empresa/{codigo}(codigo=${empresa.idempresa})}"
-								class="btn" data-toggle="tooltip" title="Editar"><i
-									class="icon-pencil"></i></a> <a th:href="@{#modalExcluir}"
-								role="button" class="btn" data-toggle="modal" title="Remover"
-								th:attr="ng-click='remover(\''+${empresa.idempresa}+'\',\''+${empresa.nome}+'\');'"><i
-									class="icon-trash"></i></a></td>
-							<!-- 						"@{/empresas/remover/{codigo}(codigo=${empresa.idempresa})}" -->
+						<tr th:each="produto : ${produtos}">
+							<td th:text="${produto.nome}"></td>
+							<td th:text="${produto.preco}"></td>
+							<td th:text="${produto.descricao}"></td>
 						</tr>
 					</tbody>
 				</table>
@@ -82,29 +70,33 @@
 		</div>
 
 	</body>
-	<div id="modalExcluir" class="modal hide fade">
+	<div id="modalProduto" class="modal hide fade">
 		<div class="modal-header">
 			<button type="button" class="close" data-dismiss="modal"
 				aria-hidden="true">×</button>
-			<h4 id="myModalLabel">Excluir Empresa</h4>
+			<h4 id="myModalLabel">Adicionar Produto</h4>
 		</div>
 		<div class="modal-body">
-			<p>Deseja excluir a empresa {{nomeEmpresa}}? </p>
+			<form method="POST" th:object="${produto}" th:action="produtos" class = "form">
+				<div class="form-group">
+					<label for="nomeProduto" class="control-label">Nome:</label>
+					<input type="text" class="form-control" id="nomeProduto" th:field="*{nome}"/>
+				</div>
+				<div class="form-group">
+					<label for="precoProduto" class="control-label">Preço:</label>
+					<input type="text" class="form-control" id="precoProduto" th:field="*{preco}"/>
+				</div>
+				<div class="form-group">
+					<label for="descricaoProduto" class="control-label">Descrição:</label>
+					<textarea class="form-control" id="descricaoProduto" th:field="*{descricao}"></textarea>
+				</div>
+			</form>
 		</div>
 		<div class="modal-footer">
 			<button class="btn" data-dismiss="modal" aria-hidden="true">Fechar</button>
-			<a th:href="@{/empresas/remover/{{codigoEmpresa}} }" class="btn btn-primary">Excluir</a>
+			<a th:href="@{/empresa/{{codigoEmpresa}} }" class="btn btn-primary">Adicionar</a>
 		</div>
 	</div>
 </div>
-<script>
-	var app = angular.module('myApp', []);
-	app.controller('myCtrl', function($scope) {
-		$scope.remover = function(codigo,nome) {
-			$scope.codigoEmpresa = codigo;
-			$scope.nomeEmpresa = nome;
-		}
-	});
-</script>
 
 </html>

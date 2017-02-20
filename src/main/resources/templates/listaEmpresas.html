@@ -68,7 +68,7 @@
 							<td th:text="${empresa.endereco}"></td>
 							<td th:text="${empresa.tipo.descricao}"></td>
 							<td><a
-								th:href="@{/empresas/{codigo}(codigo=${empresa.idempresa})}"
+								th:href="@{/empresa/{codigo}(codigo=${empresa.idempresa})}"
 								class="btn" data-toggle="tooltip" title="Editar"><i
 									class="icon-pencil"></i></a> <a th:href="@{#modalExcluir}"
 								role="button" class="btn" data-toggle="modal" title="Remover"
