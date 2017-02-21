@@ -61,7 +61,7 @@ public class EmpresaController {
 		return new ModelAndView("redirect:/empresas");
 	}
 	
-	@RequestMapping(value= "/empresa/{codigo}", method = RequestMethod.POST)
+	@RequestMapping(value= "/produtos", method = RequestMethod.POST)
 	public ModelAndView salvar(@Valid Produto produto){
 		this.cadastroProduto.salvarProduto(produto);
 		return new ModelAndView("redirect:/empresa/{codigo}");
