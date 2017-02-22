@@ -76,7 +76,7 @@
 				aria-hidden="true">×</button>
 			<h4 id="myModalLabel">Adicionar Produto</h4>
 		</div>
-		<form method="POST" th:object="${produto}" th:action="@{/produtos}" class = "form">
+		<form method="POST" th:object="${produto}" th:action="@{/empresa/{codigo}(codigo=${empresa.idempresa})}" class = "form">
 		<div class="modal-body">
 				<div class="form-group">
 					<label for="nomeProduto" class="control-label">Nome:</label>
